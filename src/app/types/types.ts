@@ -9,7 +9,7 @@ export interface User {
     clientType: 'natural' | 'juridical';
     createdAt: Date;
     status: 'active' | 'inactive';
-    accounts: Account[];
+    account: Account;
 }
 
 export interface Account {
@@ -35,5 +35,16 @@ export interface Store {
     accounts: Account[];
     transactions: Transaction[];
     currentUser: User | null;
-    createUser: (user: User) => void;
+    saveUser: (user: User) => void;
+    saveAccount: (account: Account) => void;
+}
+
+export interface RegisterFormInputs {
+    names: string;
+    lastnames: string;
+    email: string;
+    password: string;
+    address: string;
+    phone: string;
+    clientType: 'natural' | 'juridical';
 }

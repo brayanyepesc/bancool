@@ -1,12 +1,22 @@
 'use client'
-import Link from "next/link"
-import { RegisterFormInputs } from "./types";
-import { useForm } from "react-hook-form";
+import { useStore } from "@/app/store/useStore";
+import { RegisterFormInputs } from "@/app/types/types";
+import { createUser } from "@/app/utils/createUser";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 export const RegisterForm = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<RegisterFormInputs>();
+    const { users, accounts, saveUser, saveAccount } = useStore();
+    const router = useRouter();
+    const onSubmit: SubmitHandler<RegisterFormInputs> = (data) => {
+        const options = { users, accounts, saveUser, saveAccount, data };
+        createUser(options);
+        router.push('/auth/login');
+    };
     return (
-        <form className="flex flex-col justify-center items-center w-full space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col justify-center items-center w-full space-y-4">
             <div className="flex justify-center items-center w-full gap-2">
                 <div className="space-y-2 w-full">
                     <label htmlFor="" className="text-sm font-bold text-indigo-500">Names</label>

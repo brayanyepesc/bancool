@@ -2,14 +2,15 @@ import create from 'zustand';
 import { persist } from 'zustand/middleware';
 import { Store } from '../types/types';
 
-export const useAuthStore = create<Store>()(
+export const useStore = create<Store>()(
     persist(
         (set) => ({
             users: [],
             accounts: [],
             transactions: [],
             currentUser: null,
-            createUser: (user) => set((state) => ({ users: [...state.users, user] })),
+            saveUser: (user) => set((state) => ({ users: [...state.users, user] })),
+            saveAccount: (account) => set((state) => ({ accounts: [...state.accounts, account] })),
         }),
         {
             name: 'store',
