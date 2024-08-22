@@ -1,6 +1,7 @@
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
-import { Store } from '../types/types';
+import { Store, User } from '../types/types';
+import Swal from 'sweetalert2';
 
 export const useStore = create<Store>()(
     persist(
@@ -10,7 +11,19 @@ export const useStore = create<Store>()(
             transactions: [],
             currentUser: null,
             isAuthenticated: false,
-            saveUser: (user) => set((state) => ({ users: [...state.users, user] })),
+            saveUser: (user: User) => {
+                const { users } = get();
+                const userExists = users.some((u) => u.email === user.email);
+                if (!userExists) {
+                    set((state) => ({ users: [...state.users, user] }));
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'User already exists!',
+                    });
+                }
+            },
             saveAccount: (account) => set((state) => ({ accounts: [...state.accounts, account] })),
             saveTransaction: (transaction) => set((state) => ({ transactions: [...state.transactions, transaction] })),
             setCurrentUser: (user) => set((state) => ({ currentUser: user })),
