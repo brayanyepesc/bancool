@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Sidebar } from "../components/organisms";
+import { ProtectRoutes } from "../components/templates";
 
 export const metadata: Metadata = {
     title: "Bancool",
@@ -12,9 +13,11 @@ export default function BankLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <main className="flex">
-            <Sidebar />
-            {children}
-        </main>
+        <ProtectRoutes>
+            <main className="flex">
+                <Sidebar />
+                {children}
+            </main>
+        </ProtectRoutes>
     );
 }
