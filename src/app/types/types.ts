@@ -21,3 +21,11 @@ export interface Account {
     createdAt: Date;
     user: User;
 }
+
+export interface Transaction {
+    id: number;
+    amount: number;
+    type: 'deposit' | 'withdraw';
+    createdAt: Date;
+    account: Account;
+}
