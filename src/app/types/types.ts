@@ -29,3 +29,11 @@ export interface Transaction {
     createdAt: Date;
     account: Account;
 }
+
+export interface Store {
+    users: User[];
+    accounts: Account[];
+    transactions: Transaction[];
+    currentUser: User | null;
+    createUser: (user: User) => void;
+}
