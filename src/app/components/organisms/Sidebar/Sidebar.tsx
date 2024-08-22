@@ -18,7 +18,7 @@ export const Sidebar = () => {
         <aside className="h-screen">
             <nav className="h-full bg-white flex flex-col border-r shadow-md">
                 <div className="p-4 pb-2 flex justify-between items-center">
-                    <h2 className={`text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-pink-500 text-2xl overflow-hidden transition-all font-bold ${expanded ? 'w-32' : 'w-0'}`}>Bbank</h2>
+                    <h2 className={`text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-pink-500 text-2xl overflow-hidden transition-all font-bold ${expanded ? 'w-32' : 'w-0'}`}>Bancool</h2>
                     <button className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-all" onClick={() => setExpanded(!expanded)}>
                         {expanded ? <ArrowLeft className="w-6 h-6 text-gray-500" /> : <ArrowLeft className="text-gray-500 w-6 h-6 transform rotate-180" />}
                     </button>

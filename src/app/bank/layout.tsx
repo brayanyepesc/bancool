@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Sidebar } from "../components/organisms";
 
 export const metadata: Metadata = {
-    title: "Bbank",
+    title: "Bancool",
     description: "The best digital bank in the world",
 };
 
