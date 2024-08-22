@@ -37,6 +37,7 @@ export interface Store {
     currentUser: User | null;
     saveUser: (user: User) => void;
     saveAccount: (account: Account) => void;
+    setCurrentUser: (user: User) => void;
 }
 
 export interface RegisterFormInputs {

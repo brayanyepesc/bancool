@@ -1,12 +1,23 @@
 'use client'
+import { useStore } from '@/app/store/useStore';
 import { LoginFormInputs } from '@/app/types/types';
+import { loginUser } from '@/app/utils/loginUser';
 import Link from 'next/link'
-import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 export const LoginForm = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<LoginFormInputs>();
+    const { users, setCurrentUser } = useStore();
+    const router = useRouter();
+    const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
+        const options = { users, data, setCurrentUser };
+        const user = loginUser(options);
+        if (!user) return;
+        router.push('/bank/account');
+    };
     return (
-        <form className="flex flex-col justify-center items-center w-full space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col justify-center items-center w-full space-y-4">
             <div className="space-y-2 w-full">
                 <label htmlFor="" className="text-sm font-bold text-indigo-500">Email</label>
                 <input

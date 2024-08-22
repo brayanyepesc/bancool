@@ -11,6 +11,7 @@ export const useStore = create<Store>()(
             currentUser: null,
             saveUser: (user) => set((state) => ({ users: [...state.users, user] })),
             saveAccount: (account) => set((state) => ({ accounts: [...state.accounts, account] })),
+            setCurrentUser: (user) => set((state) => ({ currentUser: user })),
         }),
         {
             name: 'store',
