@@ -25,7 +25,7 @@ export interface Account {
 export interface Transaction {
     id: number;
     amount: number;
-    type: 'deposit' | 'withdraw';
+    type: 'deposit' | 'withdraw' | 'transfer';
     createdAt: Date;
     accountId: number;
 }
@@ -38,9 +38,11 @@ export interface Store {
     isAuthenticated: boolean;
     saveUser: (user: User) => void;
     saveAccount: (account: Account) => void;
+    saveTransaction: (transaction: Transaction) => void;
     setCurrentUser: (user: User) => void;
     changeStatusAuthentication: (status: boolean) => void;
     logout: () => void;
+    rechargeAccount: (accountNumber: number, amount: number) => void;
 }
 
 export interface RegisterFormInputs {
