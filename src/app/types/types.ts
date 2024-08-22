@@ -48,3 +48,8 @@ export interface RegisterFormInputs {
     phone: string;
     clientType: 'natural' | 'juridical';
 }
+
+export interface LoginFormInputs {
+    email: string;
+    password: string;
+}

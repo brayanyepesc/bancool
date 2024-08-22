@@ -1,7 +1,7 @@
 'use client'
+import { LoginFormInputs } from '@/app/types/types';
 import Link from 'next/link'
 import { useForm } from 'react-hook-form';
-import { LoginFormInputs } from './types';
 
 export const LoginForm = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<LoginFormInputs>();
