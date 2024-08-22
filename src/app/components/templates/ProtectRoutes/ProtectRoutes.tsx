@@ -1,5 +1,4 @@
 'use client'
-import { useAuthentication } from "@/app/hooks/useAuthentication";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Loading } from "../../atoms";
