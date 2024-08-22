@@ -14,12 +14,12 @@ export interface User {
 
 export interface Account {
     id: number;
+    userId: number;
     accountNumber: number;
     accountType: 'saving' | 'current';
     balance: number;
     status: 'active' | 'inactive';
     createdAt: Date;
-    user: User;
 }
 
 export interface Transaction {
