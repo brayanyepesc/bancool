@@ -16,11 +16,11 @@ export const TransactionsTable = () => {
             </thead>
             <tbody>
                 {
-                    userTransactions.map(transaction => (
-                        <tr>
-                            <td>2021-09-01</td>
-                            <td>Payment</td>
-                            <td>-$100.00</td>
+                    userTransactions.map(({ createdAt, amount, type, id }) => (
+                        <tr key={id}>
+                            <td>{new Date(createdAt).toLocaleDateString('es-ES')}</td>
+                            <td>{amount}</td>
+                            <td>{type}</td>
                         </tr>
                     ))
                 }
