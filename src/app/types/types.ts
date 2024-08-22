@@ -35,9 +35,11 @@ export interface Store {
     accounts: Account[];
     transactions: Transaction[];
     currentUser: User | null;
+    isAuthenticated: boolean;
     saveUser: (user: User) => void;
     saveAccount: (account: Account) => void;
     setCurrentUser: (user: User) => void;
+    changeStatusAuthentication: (status: boolean) => void;
 }
 
 export interface RegisterFormInputs {

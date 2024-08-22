@@ -6,9 +6,10 @@ interface Props {
     users: User[];
     data: LoginFormInputs;
     setCurrentUser: (user: User) => void;
+    changeStatusAuthentication: (status: boolean) => void;
 }
 
-export const loginUser = ({ users, data, setCurrentUser }: Props) => {
+export const loginUser = ({ users, data, setCurrentUser, changeStatusAuthentication }: Props) => {
     const user = users.find((u) => u.email === data.email && u.password === data.password);
     if (!user) {
         Swal.fire({
@@ -19,6 +20,7 @@ export const loginUser = ({ users, data, setCurrentUser }: Props) => {
         return;
     }
     setCurrentUser(user);
+    changeStatusAuthentication(true);
     Swal.fire({
         icon: 'success',
         title: 'User logged successfully',

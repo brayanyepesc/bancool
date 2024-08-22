@@ -8,10 +8,10 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 export const LoginForm = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<LoginFormInputs>();
-    const { users, setCurrentUser } = useStore();
+    const { users, setCurrentUser, changeStatusAuthentication } = useStore();
     const router = useRouter();
     const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
-        const options = { users, data, setCurrentUser };
+        const options = { users, data, setCurrentUser, changeStatusAuthentication };
         const user = loginUser(options);
         if (!user) return;
         router.push('/bank/account');

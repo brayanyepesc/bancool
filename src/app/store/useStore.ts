@@ -9,9 +9,11 @@ export const useStore = create<Store>()(
             accounts: [],
             transactions: [],
             currentUser: null,
+            isAuthenticated: false,
             saveUser: (user) => set((state) => ({ users: [...state.users, user] })),
             saveAccount: (account) => set((state) => ({ accounts: [...state.accounts, account] })),
             setCurrentUser: (user) => set((state) => ({ currentUser: user })),
+            changeStatusAuthentication: (status) => set((state) => ({ isAuthenticated: status })),
         }),
         {
             name: 'store',
