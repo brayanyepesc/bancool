@@ -27,7 +27,7 @@ export interface Transaction {
     amount: number;
     type: 'deposit' | 'withdraw';
     createdAt: Date;
-    account: Account;
+    accountId: number;
 }
 
 export interface Store {
