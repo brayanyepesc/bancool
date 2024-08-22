@@ -14,6 +14,7 @@ export const useStore = create<Store>()(
             saveAccount: (account) => set((state) => ({ accounts: [...state.accounts, account] })),
             setCurrentUser: (user) => set((state) => ({ currentUser: user })),
             changeStatusAuthentication: (status) => set((state) => ({ isAuthenticated: status })),
+            logout: () => set((state) => ({ currentUser: null, isAuthenticated: false })),
         }),
         {
             name: 'store',

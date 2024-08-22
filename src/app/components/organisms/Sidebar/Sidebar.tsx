@@ -4,13 +4,15 @@ import { useRouter } from "next/navigation"
 import { SidebarItem } from "../../molecules"
 import { ArrowLeft, ArrowRight, Check } from "lucide-react"
 import { sidebarItems } from "./utils"
+import { useStore } from "@/app/store/useStore"
 
 export const Sidebar = () => {
 
     const [expanded, setExpanded] = useState(false)
     const router = useRouter();
+    const { logout } = useStore();
     const handleLogout = () => {
-        localStorage.removeItem('token');
+        logout();
         router.push('/auth/login');
     }
 

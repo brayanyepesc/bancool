@@ -40,6 +40,7 @@ export interface Store {
     saveAccount: (account: Account) => void;
     setCurrentUser: (user: User) => void;
     changeStatusAuthentication: (status: boolean) => void;
+    logout: () => void;
 }
 
 export interface RegisterFormInputs {
