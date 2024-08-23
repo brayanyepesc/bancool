@@ -21,7 +21,7 @@ export const UpdateBalanceForm = () => {
         <form onSubmit={handleSubmit(onSubmit)} className="w-1/2 mt-10 space-y-4">
             <div className="flex flex-col space-y-2">
                 <label htmlFor="accountNumber" className="text-gray-500">Account number</label>
-                <input type="number" {...register('accountNumber', { required: 'Number account is required' })} id="accountNumber" value={currentUser?.account?.accountNumber} className="p-2 border border-gray-200 rounded-lg outline-indigo-500" />
+                <input type="number" {...register('accountNumber', { required: 'Number account is required' })} id="accountNumber" defaultValue={currentUser?.account?.accountNumber} className="p-2 border border-gray-200 rounded-lg outline-indigo-500" />
             </div>
             <div className="flex flex-col space-y-2">
                 <label htmlFor="" className="text-sm font-bold text-indigo-500">Transaction</label>

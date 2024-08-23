@@ -44,11 +44,11 @@ export const useStore = create<Store>()(
             changeStatusAuthentication: (status) => set((state) => ({ isAuthenticated: status })),
             logout: () => set((state) => ({ currentUser: null, isAuthenticated: false })),
             updateBalanceAccount(accountNumber, amount, typeTransaction) {
-                const { accounts, transactions, saveAccount, saveTransaction } = get();
-                const account = accounts.find((account) => Number(account.accountNumber) === Number(accountNumber));
-                if (account) {
-                    let newBalance;
-                    if (typeTransaction === 'deposit') {
+                const { accounts, transactions, saveAccount, saveTransaction, currentUser } = get();
+                let newBalance;
+                if (typeTransaction === 'deposit') {
+                    const account = accounts.find((account) => Number(account.accountNumber) === Number(accountNumber));
+                    if (account) {
                         newBalance = account.balance + Number(amount);
                         account.balance = Number(newBalance);
                         saveAccount(account);
@@ -61,7 +61,10 @@ export const useStore = create<Store>()(
                         });
                         Swal.fire('Success', 'Recharge account successfully', 'success');
                     }
-                    if (typeTransaction === 'withdraw') {
+                }
+                if (typeTransaction === 'withdraw') {
+                    const account = accounts.find((account) => Number(account.accountNumber) === Number(accountNumber));
+                    if (account) {
                         newBalance = account.balance - Number(amount);
                         if (newBalance >= 0) {
                             account.balance = Number(newBalance);
@@ -82,6 +85,45 @@ export const useStore = create<Store>()(
                                 text: 'The account does not have enough balance to complete the withdrawal.',
                             });
                         }
+                    }
+                }
+                if (typeTransaction === 'transfer') {
+                    const accountOrigin = accounts.find((account) => account.userId === currentUser?.id);
+                    const accountDestination = accounts.find((account) => account.accountNumber === accountNumber);
+                    if (accountOrigin && accountDestination) {
+                        if (accountOrigin.balance >= Number(amount)) {
+                            accountOrigin.balance -= Number(amount);
+                            accountDestination.balance += Number(amount);
+                            saveAccount(accountOrigin);
+                            saveAccount(accountDestination);
+                            saveTransaction({
+                                id: transactions.length + 1,
+                                amount: Number(amount),
+                                type: 'transfer',
+                                createdAt: new Date(),
+                                accountId: accountOrigin.id,
+                            });
+                            saveTransaction({
+                                id: transactions.length + 1,
+                                amount: Number(amount),
+                                type: 'transfer',
+                                createdAt: new Date(),
+                                accountId: accountDestination.id,
+                            });
+                            Swal.fire('Success', 'Transfer successfully', 'success');
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Insufficient Funds',
+                                text: 'The account does not have enough balance to complete the transfer.',
+                            });
+                        }
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Account not found',
+                            text: 'The account number does not exist.',
+                        });
                     }
                 }
             },
