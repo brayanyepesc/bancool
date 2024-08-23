@@ -20,7 +20,7 @@ export const sidebarItems = [
         icon: PersonStanding,
         text: "Profile",
         active: false,
-        link: "/bank"
+        link: "/bank/profile"
     },
     {
         id: 4,
