@@ -3,17 +3,17 @@ import { useStore } from "@/app/store/useStore";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-interface RechargeAccountInputs {
+interface UpdateBalanceInputs {
     accountNumber: number;
     typeTransaction: 'deposit' | 'withdraw' | 'transfer';
     amount: number;
 }
 
-export const RechargeForm = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm<RechargeAccountInputs>();
+export const UpdateBalanceForm = () => {
+    const { register, handleSubmit, formState: { errors } } = useForm<UpdateBalanceInputs>();
     const { currentUser, updateBalanceAccount } = useStore();
     const router = useRouter();
-    const onSubmit: SubmitHandler<RechargeAccountInputs> = async (data) => {
+    const onSubmit: SubmitHandler<UpdateBalanceInputs> = async (data) => {
         updateBalanceAccount(data.accountNumber, data.amount, data.typeTransaction);
         router.push('/bank/account');
     };

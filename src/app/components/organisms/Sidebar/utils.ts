@@ -11,8 +11,8 @@ export const sidebarItems = [
     {
         id: 2,
         icon: EuroIcon,
-        text: "Recharge",
-        link: "/bank/operations/recharge",
+        text: "Operations",
+        link: "/bank/operations",
         active: false,
     },
     {
