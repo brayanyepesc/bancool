@@ -31,10 +31,4 @@ export const createUser = ({ users, accounts, saveUser, saveAccount, data }: Pro
     }
     saveUser(newUser);
     saveAccount(newAccount);
-    Swal.fire({
-        icon: 'success',
-        title: 'User created successfully',
-        text: `Now you can login with your email: ${newUser.email}`,
-        timer: 2000
-    })
 }

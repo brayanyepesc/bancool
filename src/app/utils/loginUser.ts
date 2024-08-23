@@ -1,6 +1,7 @@
 import Swal from "sweetalert2";
 import { LoginFormInputs, User } from "../types/types";
 import { generateAccountNumber } from "./generateAccountNumber";
+import { showAlert } from "./showAlert";
 
 interface Props {
     users: User[];
@@ -12,19 +13,11 @@ interface Props {
 export const loginUser = ({ users, data, setCurrentUser, changeStatusAuthentication }: Props) => {
     const user = users.find((u) => u.email === data.email && u.password === data.password);
     if (!user) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Incorrect email or password',
-            timer: 2000
-        });
+        showAlert({ type: 'error', title: 'Error', message: 'User not found!' });
         return;
     }
     setCurrentUser(user);
     changeStatusAuthentication(true);
-    Swal.fire({
-        icon: 'success',
-        title: 'User logged successfully',
-        timer: 2000
-    })
+    showAlert({ type: 'success', title: 'Success', message: 'Welcome to the bank!' });
     return user;
 }

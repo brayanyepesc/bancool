@@ -4,6 +4,7 @@ import { generateBankStatement } from "@/app/utils/generateBankStatement";
 import Image from "next/image";
 import Swal from "sweetalert2";
 import { BankHeader } from "../BankHeader/BankHeader";
+import { showAlert } from "@/app/utils/showAlert";
 
 export const Profile = () => {
     const { currentUser, transactions } = useStore();
@@ -12,12 +13,7 @@ export const Profile = () => {
     const handleGenerateBankStatement = () => {
         const userTransactions = transactions.filter(transaction => transaction.accountId === currentUser?.account.id);
         generateBankStatement({ transactions: userTransactions });
-        Swal.fire({
-            icon: 'success',
-            title: 'Bank Statement generated successfully',
-            showConfirmButton: false,
-            timer: 1500
-        })
+        showAlert({ type: 'success', title: 'Cool!', message: 'Bank Statement generated successfully!' });
     }
     return (
         <div className="w-full flex flex-col justify-center items-center">

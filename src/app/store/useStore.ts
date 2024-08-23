@@ -2,6 +2,7 @@ import create from 'zustand';
 import { persist } from 'zustand/middleware';
 import { Store, User } from '../types/types';
 import Swal from 'sweetalert2';
+import { showAlert } from '../utils/showAlert';
 
 export const useStore = create<Store>()(
     persist(
@@ -16,12 +17,9 @@ export const useStore = create<Store>()(
                 const userExists = users.some((u) => u.email === user.email);
                 if (!userExists) {
                     set((state) => ({ users: [...state.users, user] }));
+                    showAlert({ type: 'success', title: 'Success', message: 'User created successfully!' });
                 } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'User already exists!',
-                    });
+                    showAlert({ type: 'error', title: 'Error', message: 'User already exists!' });
                 }
             },
             saveAccount: (account) => {
@@ -59,7 +57,7 @@ export const useStore = create<Store>()(
                             createdAt: new Date(),
                             accountId: account.id,
                         });
-                        Swal.fire('Success', 'Recharge account successfully', 'success');
+                        showAlert({ type: 'success', title: 'Success', message: 'Deposit was successfully!' });
                     }
                 }
                 if (typeTransaction === 'withdraw') {
@@ -77,13 +75,9 @@ export const useStore = create<Store>()(
                                 accountId: account.id,
                             });
                             const codeWithdraw = Math.floor(Math.random() * 1000000);
-                            Swal.fire('Success', `Withdraw successfully, your code is ${codeWithdraw}`, 'success');
+                            showAlert({ type: 'success', title: 'Success', message: `Withdraw successfully, your code is ${codeWithdraw}` });
                         } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Insufficient Funds',
-                                text: 'The account does not have enough balance to complete the withdrawal.',
-                            });
+                            showAlert({ type: 'error', title: 'Error', message: 'Insufficient Funds' });
                         }
                     }
                 }
@@ -110,20 +104,12 @@ export const useStore = create<Store>()(
                                 createdAt: new Date(),
                                 accountId: accountDestination.id,
                             });
-                            Swal.fire('Success', 'Transfer successfully', 'success');
+                            showAlert({ type: 'success', title: 'Success', message: 'Transfer successfully' });
                         } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Insufficient Funds',
-                                text: 'The account does not have enough balance to complete the transfer.',
-                            });
+                            showAlert({ type: 'error', title: 'Error', message: 'Insufficient Funds' });
                         }
                     } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Account not found',
-                            text: 'The account number does not exist.',
-                        });
+                        showAlert({ type: 'error', title: 'Error', message: 'Account not found' });
                     }
                 }
             },
