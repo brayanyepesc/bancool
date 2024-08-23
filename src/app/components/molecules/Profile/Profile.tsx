@@ -1,11 +1,23 @@
 'use client'
 import { useStore } from "@/app/store/useStore"
+import { generateBankStatement } from "@/app/utils/generateBankStatement";
 import Image from "next/image";
+import Swal from "sweetalert2";
 
 export const Profile = () => {
-    const { currentUser } = useStore();
+    const { currentUser, transactions } = useStore();
     const createdAt = currentUser?.createdAt ? new Date(currentUser?.createdAt) : new Date();
     const MemberFrom = new Date(createdAt).toLocaleDateString();
+    const handleGenerateBankStatement = () => {
+        const userTransactions = transactions.filter(transaction => transaction.accountId === currentUser?.account.id);
+        generateBankStatement({ transactions: userTransactions });
+        Swal.fire({
+            icon: 'success',
+            title: 'Bank Statement generated successfully',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }
     return (
         <div className="w-full flex flex-col justify-center items-center">
             <h2 className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-pink-500 text-5xl font-bold">Bancool</h2>
@@ -51,7 +63,7 @@ export const Profile = () => {
                     <p className="text-center text-gray-500 font-bold">For more information, call us!</p>
                     <div className="flex justify-between items-center p-2 rounded-md border border-gray-200">
                         <p>Generate bank statements</p>
-                        <button className="bg-pink-500 rounded-md text-white p-2 hover:bg-pink-600">Generate</button>
+                        <button onClick={handleGenerateBankStatement} className="bg-pink-500 rounded-md text-white p-2 hover:bg-pink-600">Generate</button>
                     </div>
                 </div>
                 <div>
