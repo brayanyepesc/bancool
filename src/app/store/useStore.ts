@@ -24,7 +24,21 @@ export const useStore = create<Store>()(
                     });
                 }
             },
-            saveAccount: (account) => set((state) => ({ accounts: [...state.accounts, account] })),
+            saveAccount: (account) => {
+                const { accounts } = get();
+                const accountExists = accounts.some((a) => a.accountNumber === account.accountNumber);
+                if (accountExists) {
+                    set((state) => ({
+                        accounts: state.accounts.map((a) =>
+                            a.accountNumber === account.accountNumber ? account : a
+                        ),
+                    }));
+                } else {
+                    set((state) => ({
+                        accounts: [...state.accounts, account],
+                    }));
+                }
+            },
             saveTransaction: (transaction) => set((state) => ({ transactions: [...state.transactions, transaction] })),
             setCurrentUser: (user) => set((state) => ({ currentUser: user })),
             changeStatusAuthentication: (status) => set((state) => ({ isAuthenticated: status })),
