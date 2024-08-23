@@ -43,20 +43,46 @@ export const useStore = create<Store>()(
             setCurrentUser: (user) => set((state) => ({ currentUser: user })),
             changeStatusAuthentication: (status) => set((state) => ({ isAuthenticated: status })),
             logout: () => set((state) => ({ currentUser: null, isAuthenticated: false })),
-            rechargeAccount(accountNumber, amount) {
+            updateBalanceAccount(accountNumber, amount, typeTransaction) {
                 const { accounts, transactions, saveAccount, saveTransaction } = get();
                 const account = accounts.find((account) => Number(account.accountNumber) === Number(accountNumber));
                 if (account) {
-                    const newBalance = account.balance + Number(amount);
-                    account.balance = Number(newBalance);
-                    saveAccount(account);
-                    saveTransaction({
-                        id: transactions.length + 1,
-                        amount: Number(amount),
-                        type: 'deposit',
-                        createdAt: new Date(),
-                        accountId: account.id,
-                    });
+                    let newBalance;
+                    if (typeTransaction === 'deposit') {
+                        newBalance = account.balance + Number(amount);
+                        account.balance = Number(newBalance);
+                        saveAccount(account);
+                        saveTransaction({
+                            id: transactions.length + 1,
+                            amount: Number(amount),
+                            type: 'deposit',
+                            createdAt: new Date(),
+                            accountId: account.id,
+                        });
+                        Swal.fire('Success', 'Recharge account successfully', 'success');
+                    }
+                    if (typeTransaction === 'withdraw') {
+                        newBalance = account.balance - Number(amount);
+                        if (newBalance >= 0) {
+                            account.balance = Number(newBalance);
+                            saveAccount(account);
+                            saveTransaction({
+                                id: transactions.length + 1,
+                                amount: Number(amount),
+                                type: 'withdraw',
+                                createdAt: new Date(),
+                                accountId: account.id,
+                            });
+                            const codeWithdraw = Math.floor(Math.random() * 1000000);
+                            Swal.fire('Success', `Withdraw successfully, your code is ${codeWithdraw}`, 'success');
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Insufficient Funds',
+                                text: 'The account does not have enough balance to complete the withdrawal.',
+                            });
+                        }
+                    }
                 }
             },
         }),

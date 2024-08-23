@@ -42,7 +42,7 @@ export interface Store {
     setCurrentUser: (user: User) => void;
     changeStatusAuthentication: (status: boolean) => void;
     logout: () => void;
-    rechargeAccount: (accountNumber: number, amount: number) => void;
+    updateBalanceAccount: (accountNumber: number, amount: number, typeTransaction: 'deposit' | 'withdraw' | 'transfer') => void;
 }
 
 export interface RegisterFormInputs {

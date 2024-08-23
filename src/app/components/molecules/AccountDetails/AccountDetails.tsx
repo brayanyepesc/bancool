@@ -4,8 +4,9 @@ import { useStore } from "@/app/store/useStore";
 import { MoneyFormatter } from "@/app/utils/moneyFormatter";
 
 export const AccountDetails = () => {
-  const { currentUser } = useStore();
-  const balance = currentUser?.account?.balance || 0;
+  const { currentUser, accounts } = useStore();
+  const userAccount = accounts.find((account) => account.userId === currentUser?.id);
+  const balance = userAccount?.balance || 0;
   return (
     <div className="grid grid-cols-2 gap-4 w-full place-items-center">
       <div className="w-full h-44 bg-gray-100 rounded shadow-lg flex flex-col justify-center items-center space-y-2">

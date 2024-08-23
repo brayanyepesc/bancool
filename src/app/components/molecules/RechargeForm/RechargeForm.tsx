@@ -11,11 +11,10 @@ interface RechargeAccountInputs {
 
 export const RechargeForm = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<RechargeAccountInputs>();
-    const { currentUser, rechargeAccount } = useStore();
+    const { currentUser, updateBalanceAccount } = useStore();
     const router = useRouter();
     const onSubmit: SubmitHandler<RechargeAccountInputs> = async (data) => {
-        rechargeAccount(data.accountNumber, data.amount);
-        Swal.fire('Success', 'Recharge account successfully', 'success');
+        updateBalanceAccount(data.accountNumber, data.amount, 'withdraw');
         router.push('/bank/account');
     };
     return (
