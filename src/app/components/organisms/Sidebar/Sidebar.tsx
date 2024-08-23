@@ -17,7 +17,7 @@ export const Sidebar = () => {
     }
 
     return (
-        <aside className="h-screen">
+        <aside className="min-h-screen">
             <nav className="h-full bg-white flex flex-col border-r shadow-md">
                 <div className="p-4 pb-2 flex justify-between items-center">
                     <h2 className={`text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-pink-500 text-2xl overflow-hidden transition-all font-bold ${expanded ? 'w-32' : 'w-0'}`}>Bancool</h2>
