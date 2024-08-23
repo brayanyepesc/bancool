@@ -1,6 +1,6 @@
-export * from "./AuthHeader/AuthHeader";    
 export * from "./SidebarItem/SidebarItem"
 export * from "./DebitCard/DebitCard"
 export * from "./AccountDetails/AccountDetails"
 export * from "./UpdateBalanceForm/UpdateBalanceForm"
 export * from "./Profile/Profile"
+export * from "./BankHeader/BankHeader"
