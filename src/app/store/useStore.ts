@@ -89,7 +89,7 @@ export const useStore = create<Store>()(
                 }
                 if (typeTransaction === 'transfer') {
                     const accountOrigin = accounts.find((account) => account.userId === currentUser?.id);
-                    const accountDestination = accounts.find((account) => account.accountNumber === accountNumber);
+                    const accountDestination = accounts.find((account) => Number(account.accountNumber) === Number(accountNumber));
                     if (accountOrigin && accountDestination) {
                         if (accountOrigin.balance >= Number(amount)) {
                             accountOrigin.balance -= Number(amount);
