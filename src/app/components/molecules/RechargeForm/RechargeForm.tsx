@@ -2,10 +2,10 @@
 import { useStore } from "@/app/store/useStore";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
-import Swal from "sweetalert2";
 
 interface RechargeAccountInputs {
     accountNumber: number;
+    typeTransaction: 'deposit' | 'withdraw' | 'transfer';
     amount: number;
 }
 
@@ -14,7 +14,7 @@ export const RechargeForm = () => {
     const { currentUser, updateBalanceAccount } = useStore();
     const router = useRouter();
     const onSubmit: SubmitHandler<RechargeAccountInputs> = async (data) => {
-        updateBalanceAccount(data.accountNumber, data.amount, 'withdraw');
+        updateBalanceAccount(data.accountNumber, data.amount, data.typeTransaction);
         router.push('/bank/account');
     };
     return (
@@ -22,6 +22,17 @@ export const RechargeForm = () => {
             <div className="flex flex-col space-y-2">
                 <label htmlFor="accountNumber" className="text-gray-500">Account number</label>
                 <input type="number" {...register('accountNumber', { required: 'Number account is required' })} id="accountNumber" value={currentUser?.account?.accountNumber} className="p-2 border border-gray-200 rounded-lg outline-indigo-500" />
+            </div>
+            <div className="flex flex-col space-y-2">
+                <label htmlFor="" className="text-sm font-bold text-indigo-500">Transaction</label>
+                <select
+                    {...register('typeTransaction', { required: 'Select a transaction type' })}
+                    className="w-full p-2 rounded outline-indigo-500 border border-gray-300"
+                >
+                    <option value="deposit">Deposit</option>
+                    <option value="withdraw">Withdraw</option>
+                    <option value="transfer">Transfer</option>
+                </select>
             </div>
             <div className="flex flex-col space-y-2">
                 <label htmlFor="amount" className="text-gray-500">Amount</label>
